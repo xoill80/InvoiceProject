@@ -1,6 +1,7 @@
 import json
 import csv
 import re
+import os 
 
 from openpyxl import load_workbook
 from pypdf import PdfReader
@@ -14,9 +15,10 @@ try:
 except ImportError:
     tk = None
     filedialog = None
-    messagebox = None   
+    messagebox = None 
 
-pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
+if os.name == "nt":
+    pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
 
 def test_ocr():
     image = Image.open("test_invoice.png")
