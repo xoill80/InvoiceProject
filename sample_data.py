@@ -1,0 +1,20 @@
+po = {
+    "number": "PO-1001",
+    "supplier": "ABC Trading",
+    "quantity": 100,
+    "price": 50
+}
+
+receipt = {
+    "quantity": 100
+}
+
+invoice = {
+    "po_number": "PO-1001",
+    "supplier": "ABC Trading",
+    "quantity": 100,
+    "price": 50,
+    "subtotal": 5000,
+    "vat": 750,
+    "total": 5750
+}

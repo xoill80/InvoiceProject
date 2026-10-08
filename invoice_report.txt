@@ -1,0 +1,12 @@
+FINAL RESULT: MATCHED
+
+جميع بيانات أمر الشراء والاستلام والفاتورة متطابقة، .ولم يتم العثور على أي اختلافات
+
+PO Number: PO-1001
+Supplier: ABC Trading
+Ordered Quantity: 100
+Received Quantity: 100
+Invoiced Quantity: 100
+Unit Price: 50.0
+VAT: 750.0
+Total: 5750.0

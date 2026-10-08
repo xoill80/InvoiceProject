@@ -1,0 +1,2 @@
+po_number,supplier,quantity,price,subtotal,vat,total
+PO-1001,ABC Trading,100,50,5000,750,5750
