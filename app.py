@@ -2,13 +2,19 @@ import json
 import csv
 import re
 
-from tkinter import filedialog, messagebox
 from openpyxl import load_workbook
 from pypdf import PdfReader
 import pdfplumber
 import pytesseract
 from PIL import Image
-import tkinter as tk
+
+try:
+   import tkinter as tk
+   from tkinter import filedialog, messagebox
+except ImportError:
+    tk = None
+    filedialog = None
+    messagebox = None   
 
 pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
 
