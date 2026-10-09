@@ -19,6 +19,8 @@ except ImportError:
 
 if os.name == "nt":
     pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
+else:
+    pytesseract.pytesseract.tesseract_cmd = "/usr/bin/tesseract"    
 
 def test_ocr():
     image = Image.open("test_invoice.png")
