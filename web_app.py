@@ -166,7 +166,13 @@ if po_file and receipt_file and invoice_file:
                 if issues_found == 0:
                     st.success("FINAL RESULT: MATCHED")
                 else:
-                    st.error("FINAL RESULT: REVIEW NEEDED") 
+                    st.error("FINAL RESULT: REVIEW NEEDED")
+
+                    if po["quantity"] != receipt["quantity"]:
+                        st.warning(
+                            f"Quantity mismatch: Ordered {po['quantity']}, "
+                            f"Received {receipt['quantity']}."
+                        ) 
 
                 st.subheader("Saudi Invoice Checks") 
 
