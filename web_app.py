@@ -220,7 +220,8 @@ if po_file and receipt_file and invoice_file:
                     mime="text/plain"
                 )
 
-            except Exception:
+            except Exception as e:
+                st.error(f"Error details: {e}")
                 st.error(
             ".حدث خطأ أثناء قراءة أو التحقق من الملفات"
             ".يرجى التأكد من أن الملفات صحيحة ومدعومة"
