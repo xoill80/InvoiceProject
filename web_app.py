@@ -71,9 +71,9 @@ if po_file and receipt_file and invoice_file:
 
     if st.button("Verify Documents"):
         with tempfile.TemporaryDirectory() as temp_dir:
-            po_path = os.path.join(temp_dir, po_file.name) 
-            receipt_path = os.path.join(temp_dir, receipt_file.name)
-            invoice_path = os.path.join(temp_dir, invoice_file.name)
+            po_path = os.path.join(temp_dir, "po" + os.path.splitext(po_file.name)[1].lower()) 
+            receipt_path = os.path.join(temp_dir, "receipt" + os.path.splitext(receipt_file.name)[1].lower())
+            invoice_path = os.path.join(temp_dir, "invoice" + os.path.splitext(invoice_file.name)[1].lower())
 
             with open(po_path, "wb") as f:
                 f.write(po_file.getbuffer())
