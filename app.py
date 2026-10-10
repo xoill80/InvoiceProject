@@ -484,8 +484,8 @@ def check_price(po_price, invoice_price):
 
 
 def check_po_number(po_number, invoice_po_number):
-    clean_po_number = po_number.strip().upper()
-    clean_invoice_po_number = invoice_po_number.strip().upper()
+    clean_po_number = str(po_number).strip().upper()
+    clean_invoice_po_number = str(invoice_po_number).strip().upper()
 
     if clean_po_number == clean_invoice_po_number:
         return 0
@@ -494,8 +494,8 @@ def check_po_number(po_number, invoice_po_number):
 
 
 def check_supplier(po_supplier, invoice_supplier):
-    clean_po_supplier = po_supplier.strip().upper()
-    clean_invoice_supplier = invoice_supplier.strip().upper()
+    clean_po_supplier = str(po_supplier).strip().upper()
+    clean_invoice_supplier = str(invoice_supplier).strip().upper()
 
     if clean_po_supplier == clean_invoice_supplier:
         return 0
