@@ -43,6 +43,8 @@ MAX_FILE_SIZE = 10 * 1024 * 1024  # 10 MB
 
 st.title("Invoice Verification")
 
+st.info("Beta,Version: Please upload sample or non-sensitive documents only. Do not upload confidential financial data.")
+
 po_file = st.file_uploader(
     "Upload PO",
     type=["pdf", "xlsx", "png", "jpg", "jpeg"]
