@@ -41,22 +41,22 @@ from app import (
 
 MAX_FILE_SIZE = 10 * 1024 * 1024  # 10 MB
 
-st.title("Invoice Verification")
+st.title("طابِق | مطابقة ذكية قبل الدفع")
 
-st.info("Beta,Version: Please upload sample or non-sensitive documents only. Do not upload confidential financial data.")
+st.info("⚠️ نسخة تجريبية: يرجى رفع مستندات وهمية أو غير حساسة فقط. لا ترفع مستندات مالية سرية أو بيانات عملاء حقيقية.")
 
 po_file = st.file_uploader(
-    "Upload PO",
+    "١. أمر الشراء: المستند الذي يوضح الأصناف والكميات والأسعار التي طلبتها من المورد",
     type=["pdf", "xlsx", "png", "jpg", "jpeg"]
 )
 
 receipt_file = st.file_uploader(
-    "Upload Receipt",
+    "٢. إثبات استلام البضاعة: المستند الذي يوضح الأصناف والكميات التي استلمتها فعليًا من المورد",
     type=["pdf", "xlsx", "png", "jpg", "jpeg"]
 )
 
 invoice_file = st.file_uploader(
-    "Upload Invoice",
+    "٣. فاتورة المورد: المستند الذي يوضح الأصناف والكميات والأسعار والمبلغ المطلوب دفعه للمورد",
     type=["pdf", "xlsx", "png", "jpg", "jpeg"]
 
 )
