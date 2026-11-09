@@ -214,7 +214,7 @@ if po_file and receipt_file and invoice_file:
                
                 report_text = f"""
     تقرير طابِق - مطابقة المستندات
-
+                 
     النتيجة النهائية: {result_display}
 
     {po["number"]} :رقم أمر الشراء
@@ -229,7 +229,7 @@ if po_file and receipt_file and invoice_file:
     ملاحظة: هذه نتيجة فحص آلي، ويجب مراجعتها قبل اعتماد الدفع. 
     """
 
-               st.download_button(
+                st.download_button(
                    label="📄 تحميل تقرير المطابقة",
                    data=report_text,
                    file_name="tabeq_report.txt",
