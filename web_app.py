@@ -239,5 +239,10 @@ if po_file and receipt_file and invoice_file:
                
             except Exception:
                 st.error("⚠️ حدث خطأ أثناء معالجة المستندات. يُرجى التأكد من أن الملفات صحيحة ومدعومة.")
+                
+                import logging
+                logging.exception("Document verification failed")
+
+                
 
                 
