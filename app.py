@@ -122,10 +122,9 @@ def read_receipt_pdf(file_path="receipt.pdf"):
 
     pdf_receipt_quantity = None
 
-    for i, text in enumerate(receipt_word_texts):
-        if text.lower() == "quantity" and i + 1 < len(receipt_word_texts):
-            pdf_receipt_quantity = int(receipt_word_texts[i + 1])
-            break
+    match = re.search(r"Quantity\s+received\s*:\s*(\d+)", receipt_pdf_text, re.I)
+    if match:
+        pdf_receipt_quantity = int(match.group(1))
 
     return {
         "quantity": pdf_receipt_quantity
