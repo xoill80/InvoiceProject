@@ -185,7 +185,7 @@ if po_file and receipt_file and invoice_file:
                     if abs(invoice["vat"] - expected_vat) < 0.01:
                         st.success("✅ حساب ضريبة القيمة المضافة صحيح ومتوافق مع المبلغ قبل الضريبة.")
                     else:
-                        st.warning("VAT calculation may be inconsistent.") 
+                        st.warning("⚠️ يوجد اختلاف في حساب ضريبة القيمة المضافة، يُرجى مراجعة المبلغ.") 
                 else:
                     st.info("ℹ️ لم يتم فحص الضريبة لعدم توفر بياناتها أو لأن قيمتها صفر.")
 
@@ -202,7 +202,7 @@ if po_file and receipt_file and invoice_file:
 
                 st.write("رقم أمر الشراء:", po["number"]) 
                 st.write("اسم المورد:", po["supplier"])
-                    write("الكمية المطلو:", po["quantity"])
+                st.write("الكمية المطلو:", po["quantity"])
                 st.write("الكمية المستلمة:", receipt["quantity"])
                 st.write("الكمية في فاتورة المورد:", invoice["quantity"])
                 st.write("سعر الوحدة:", invoice["price"])
