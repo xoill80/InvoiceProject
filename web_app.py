@@ -69,9 +69,9 @@ for uploaded_file in uploaded_files:
         st.stop()
 
 if po_file and receipt_file and invoice_file:
-    st.success("All three files uploaded successfully.")
+    st.success("✅ تم رفع المستندات الثلاثة بنجاح، ويمكنك الآن بدء التحقق.")
 
-    if st.button("Verify Documents"):
+    if st.button("🔍 التحقق من المستندات"):
         with tempfile.TemporaryDirectory() as temp_dir:
             po_path = os.path.join(temp_dir, "po" + os.path.splitext(po_file.name)[1].lower()) 
             receipt_path = os.path.join(temp_dir, "receipt" + os.path.splitext(receipt_file.name)[1].lower())
@@ -86,7 +86,7 @@ if po_file and receipt_file and invoice_file:
             with open(invoice_path, "wb") as f:
                 f.write(invoice_file.getbuffer())
 
-            st.success("Files are ready for verification.") 
+            st.success("✅ المستندات جاهزة للمطابقة، جاري التحقق من البيانات.") 
 
 
             try:
@@ -126,7 +126,7 @@ if po_file and receipt_file and invoice_file:
                     or not invoice["supplier"]
                     or invoice["quantity"] is None
                     or invoice["price"] is None
-                    or invoice["vat"] is None
+                    
                     or invoice["total"] is None    
                 ):
                     raise ValueError("Invalid document data")
@@ -153,40 +153,41 @@ if po_file and receipt_file and invoice_file:
                     po["supplier"],
                     invoice["supplier"]
                 )
-
-                issues_found += check_vat(
-                    invoice["subtotal"],
-                    invoice["vat"]
-                )
+                
+                if invoice["vat"] is not None and invoice["vat"] != 0:
+                    issues_found += check_vat(
+                        invoice["subtotal"],
+                        invoice["vat"]
+                    )
 
                 issues_found += check_total(
                     invoice["subtotal"],
-                    invoice["vat"],
+                    0 if invoice["vat"] is None else invoice["vat"],
                     invoice["total"]
                 )
 
                 if issues_found == 0:
-                    st.success("FINAL RESULT: MATCHED")
+                    st.success("✅ النتيجة النهائية: المستندات متطابقة")
                 else:
-                    st.error("FINAL RESULT: REVIEW NEEDED")
+                    st.error("⚠️ النتيجة النهائية: توجد اختلافات تحتاج إلى مراجعة قبل الدفع")
 
                     if po["quantity"] != receipt["quantity"]:
                         st.warning(
-                            f"Quantity mismatch: Ordered {po['quantity']}, "
-                            f"Received {receipt['quantity']}."
+                            f"⚠️ اختلاف في الكمية: الكمية المطلوبة {po['quantity']}، "
+                            f"والكمية المستلمة فعليًا {receipt['quantity']}."
                         ) 
 
-                st.subheader("Saudi Invoice Checks") 
+                st.subheader("التحقق من بيانات الفاتورة والضريبة") 
 
-                if invoice["vat"] is not None and invoice["subtotal"] is not None:
+                if invoice["vat"] not in (None, 0) and invoice["subtotal"] is not None:
                     expected_vat = invoice["subtotal"] * 0.15
 
                     if abs(invoice["vat"] - expected_vat) < 0.01:
-                        st.success("VAT calculation is consistent.")
+                        st.success("✅ حساب ضريبة القيمة المضافة صحيح ومتوافق مع المبلغ قبل الضريبة.")
                     else:
                         st.warning("VAT calculation may be inconsistent.") 
                 else:
-                    st.warning("VAT information is missing.")
+                    st.info("ℹ️ لم يتم فحص الضريبة لعدم توفر بياناتها أو لأن قيمتها صفر.")
 
                 if (
                     invoice["po_number"]
