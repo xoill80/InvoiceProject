@@ -194,47 +194,46 @@ if po_file and receipt_file and invoice_file:
                     and invoice["supplier"]
                     and invoice["total"] is not None
                 ):
-                    st.success("Basic invoice information is present.")
+                    st.success("✅ بيانات الفاتورة الأساسية متوفرة.")
                 else:
-                    st.warning("Some basic invoice information is missing.")
+                    st.warning("⚠️ بعض بيانات الفاتورة الأساسية غير متوفرة، يُرجى مراجعتها.")
                         
 
 
-                st.write("PO Number:", po["number"]) 
-                st.write("Supplier:", po["supplier"]) 
-                st.write("Ordered Quantity:", po["quantity"]) 
-                st.write("Received Quantity:", receipt["quantity"]) 
-                st.write("Invoice Quantity:", invoice["quantity"])
-                st.write("Unit Price:", invoice["price"])
-                st.write("vat:", invoice["vat"])
-                st.write("Total:", invoice["total"])
+                st.write("رقم أمر الشراء:", po["number"]) 
+                st.write("اسم المورد:", po["supplier"])
+                    write("الكمية المطلو:", po["quantity"])
+                st.write("الكمية المستلمة:", receipt["quantity"])
+                st.write("الكمية في فاتورة المورد:", invoice["quantity"])
+                st.write("سعر الوحدة:", invoice["price"])
+                st.write("ضريبة القيمة المضافة:", invoice["vat"] if invoice["vat"] is not None else "غير مذكورة")
+                st.write("إجمالي الفاتورة:", invoice["total"])
 
+                vat_display = invoice["vat"] if invoice["vat"] is not None else "غير مذكورة" 
+                result_display = "المستندات متطابقة" if issues_found == 0 else "توجد اختلافات تحتاج إلى مراجعة"
+               
                 report_text = f"""
-            FINAL RESULT: {"MATCHED" if issues_found == 0 else "REVIEW NEEDED"}
+    تقرير طابِق - مطابقة المستندات
 
-            PO Number: {po["number"]}
-            Supplier: {po["supplier"]}
-            Ordered Quantity: {po["quantity"]}
-            Received Quantity: {receipt["quantity"]}
-            Invoice Quantity: {invoice["quantity"]}
-            Unit Price: {invoice["price"]}
-            VAT: {invoice["vat"]}
-            Total: {invoice["total"]}
-            """
+    النتيجة النهائية: {result_display}
 
-                st.download_button(
-                    label="Download Report",
-                    data=report_text,
-                    file_name="invoice_report_text",
-                    mime="text/plain"
-                )
+    {po["number"]} :رقم أمر الشراء
+    {po["supplier"]} :اسم المورد
+    {po["quantity"]} :الكمية المطلوبة
+    {receipt["quantity"]} :الكمية المستلمة
+    {invoice["quantity"]} :الكمية في الفاتورة
+    {invoice["price"]} :سعر الوحدة
+    {vat_display} :ضريبة القيمة المضافة
+    {invoice["total"]} :إجمالي الفاتورة
+  
+    ملاحظة: هذه نتيجة فحص آلي، ويجب مراجعتها قبل اعتماد الدفع. 
+    """
 
-            except Exception as e:
-                st.error("An error occurred while processing the documents. Please check your files and try again.")
-                st.error(
-            ".حدث خطأ أثناء قراءة أو التحقق من الملفات"
-            ".يرجى التأكد من أن الملفات صحيحة ومدعومة"
-                )
+               st.download_button(
+                   label="📄 تحميل تقرير المطابقة",
+                   data=report_text,
+                   file_name="tabeq_report.txt",
+                   mime="text/plain"
+               )
+
                 
-                    
-
